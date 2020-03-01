@@ -1,7 +1,7 @@
 const parse = require('@starptech/rehype-webparser')
-const stringify = require('@starptech/prettyhtml-formatter/stringify')
+const stringify = require('../../prettyhtml-formatter/stringify')
 const sortAttributes = require('@starptech/prettyhtml-sort-attributes')
-const format = require('@starptech/prettyhtml-formatter')
+const format = require('../../prettyhtml-formatter')
 const report = require('vfile-reporter')
 
 function processResult({ cli }) {

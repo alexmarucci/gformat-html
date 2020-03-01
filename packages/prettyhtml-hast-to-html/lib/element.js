@@ -96,9 +96,12 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
   // represent the length of the inner text of the node
   printContext.offset += innerTextLength
 
-  attrs = attributes(ctx, node.properties, printContext, ignoreAttrCollapsing)
+  attrs = attributes(ctx, node.properties, printContext, ignoreAttrCollapsing, node)
 
-  const shouldCollapse = ignoreAttrCollapsing === false && printContext.wrapAttributes
+  // calculate element width without closing tag
+  const elementWidth = calculateElementWidth(node);
+
+  const shouldCollapse = ignoreAttrCollapsing === false && printContext.wrapAttributes || elementWidth > ctx.printWidth;
 
   content = all(ctx, root)
 
@@ -114,11 +117,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
     if (attrs) {
       // add no space after tagName when element is collapsed
-      if (shouldCollapse) {
-        value += attrs
-      } else {
-        value += space + attrs
-      }
+      value += space + attrs
     }
 
     let selfClosed = false
@@ -130,7 +129,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
       }
 
       if (shouldCollapse) {
-        value += newLine + repeat(ctx.tabWidth, printContext.indentLevel)
+        value += repeat(ctx.tabWidth, printContext.indentLevel - 1)
       }
 
       selfClosed = true
@@ -140,7 +139,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
     // allow any element to self close itself except known HTML void elements
     else if (selfClosing && !isVoid) {
       if (shouldCollapse) {
-        value += newLine + repeat(ctx.tabWidth, printContext.indentLevel)
+        value += repeat(ctx.tabWidth, printContext.indentLevel)
       }
 
       selfClosed = true
@@ -150,10 +149,10 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
     // add newline when element should be wrappend on multiple lines and when
     // it's no self-closing element because in that case the newline was already added before the slash (/)
     if (shouldCollapse && !selfClosed) {
-      value += newLine + repeat(ctx.tabWidth, printContext.indentLevel)
-    }
-
+      value += greaterThan + newLine + repeat(ctx.tabWidth, printContext.indentLevel)
+    } else {
     value += greaterThan
+    }
   }
 
   value += content
@@ -168,7 +167,8 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 }
 
 /* Stringify all attributes. */
-function attributes(ctx, props, printContext, ignoreIndent) {
+function attributes(ctx, props, printContext, ignoreIndent, node) {
+  const nodeOffset = ctx.tabWidth.length * printContext.indentLevel + node.tagName.length + 2/* 1 space + open tag symbol = 2 chars */;
   var values = []
   var key
   var value
@@ -203,11 +203,10 @@ function attributes(ctx, props, printContext, ignoreIndent) {
   while (++index < length) {
     result = values[index]
     last = null
-
     /* In tight mode, don’t add a space after quoted attributes. */
     if (last !== quotationMark && last !== apostrophe) {
-      if (printContext.wrapAttributes) {
-        values[index] = newLine + repeat(ctx.tabWidth, printContext.indentLevel + 1) + result
+      if (printContext.wrapAttributes && index > 0) {
+        values[index] = newLine + repeat(space, nodeOffset) + result
       } else if (index !== length - 1) {
         values[index] = result + space
       } else {
@@ -274,4 +273,16 @@ function attributeValue(ctx, key, value, info) {
 function getNodeData(node, key, defaultValue) {
   let data = node.data || {}
   return data[key] || defaultValue
+}
+
+function calculateElementWidth(node) {
+  if (node.type === 'element') {
+    const startColumn = node.position.start.column;
+    const endColumn = node.position.end.column;
+    const closingTagWidth = node.data.selfClosing ? node.tagName.length + 3 : 0;
+
+    return endColumn - startColumn - closingTagWidth;
+  }
+
+  return 1;
 }
