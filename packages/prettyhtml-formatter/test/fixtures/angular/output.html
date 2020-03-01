@@ -6,7 +6,7 @@
   <td class="mat-calendar-body-label"
       [attr.colspan]="numCols"
       [style.paddingTop.%]="50 * cellAspectRatio / numCols"
-      [style.paddingBottom.%]="50 * cellAspectRatio / numCols" >
+      [style.paddingBottom.%]="50 * cellAspectRatio / numCols">
     {{label}}
   </td>
 </tr>
@@ -24,7 +24,7 @@
       class="mat-calendar-body-label"
       [attr.colspan]="_firstRowOffset"
       [style.paddingTop.%]="50 * cellAspectRatio / numCols"
-      [style.paddingBottom.%]="50 * cellAspectRatio / numCols" >
+      [style.paddingBottom.%]="50 * cellAspectRatio / numCols">
     {{_firstRowOffset >= labelMinRequiredCells ? label : ''}}
   </td>
   <td *ngFor="let item of row; let colIndex = index"
@@ -77,7 +77,7 @@
              [cdkConnectedOverlayScrollStrategy]="_scrollStrategy"
              [cdkConnectedOverlayOrigin]="origin"
              [cdkConnectedOverlayOpen]="panelOpen"
-              [cdkConnectedOverlayPositions]="_positions"
+             [cdkConnectedOverlayPositions]="_positions"
              [cdkConnectedOverlayMinWidth]="_triggerRect?.width"
              [cdkConnectedOverlayOffsetY]="_offsetY"
              (backdropClick)="close()"

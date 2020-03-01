@@ -196,7 +196,7 @@ function attributes(ctx, props, printContext, ignoreIndent, node) {
     result = attribute(ctx, key, value)
 
     printContext.offset += result.length
-    attributesWidth += result.length
+    attributesWidth += result.length + space.length
 
     if (result) {
       values.push(result)
