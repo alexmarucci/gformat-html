@@ -291,18 +291,6 @@ function getNodeData(node, key, defaultValue) {
   return data[key] || defaultValue
 }
 
-function calculateElementWidth(node) {
-  if (node.type === 'element' && node.position) {
-    const startColumn = node.position.start.column
-    const endColumn = node.position.end.column
-    const closingTagWidth = node.data.selfClosing ? node.tagName.length + 3 : 0
-
-    return endColumn - startColumn - closingTagWidth
-  }
-
-  return 1
-}
-
 function hasNewLine(node, first, ctx) {
   const isVoid = ctx.voids.indexOf(node.tagName) !== -1
 
