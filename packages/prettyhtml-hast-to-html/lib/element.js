@@ -152,7 +152,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
     // add newline when element should be wrappend on multiple lines
     if (shouldCollapse) {
-      value += greaterThan + newLine + repeat(ctx.tabWidth, printContext.indentLevel + (content ? 1 : 0))
+      value += greaterThan + (!hasNewLine(node) ? newLine+ repeat(ctx.tabWidth, printContext.indentLevel + (content ? 1 : 0)): '')
     } else {
       value += greaterThan
     }
@@ -161,7 +161,9 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
   value += content
 
   if (!selfClosing && (!omit || !omit.closing(node, index, parent))) {
-    value += (shouldCollapse && content ? newLine : '') + lessThan + slash + name + greaterThan
+    const indent = repeat(ctx.tabWidth, printContext.indentLevel );
+    value += (shouldCollapse && !hasNewLine(node) ? newLine + indent : '')
+    value += lessThan + slash + name + greaterThan
   }
 
   ctx.schema = parentSchema
@@ -206,7 +208,7 @@ function attributes(ctx, props, printContext, ignoreIndent, node) {
       node.tagName.length + 2 + (node.data.selfClosing ? 1 : 0) +
       attributesWidth;
 
-  const offset = props.length ? openTagOffset : printContext.offset;
+  const offset = attributesWidth > 0 ? openTagOffset : printContext.offset;
   if (ignoreIndent === false && offset > ctx.printWidth) {
     printContext.wrapAttributes = true
   }
@@ -299,4 +301,11 @@ function calculateElementWidth(node) {
   }
 
   return 1
+}
+
+function hasNewLine(node, first) {
+  const position = first ? 0 : node.children.length - 1;
+  return node.children.length &&
+         node.children[position].type === 'text' &&
+         /^\n/.test(node.children[position].value);
 }
