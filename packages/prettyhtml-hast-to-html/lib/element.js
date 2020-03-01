@@ -152,7 +152,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
     // add newline when element should be wrappend on multiple lines
     if (shouldCollapse) {
-      value += greaterThan + (!hasNewLine(node) ? newLine+ repeat(ctx.tabWidth, printContext.indentLevel + (content ? 1 : 0)): '')
+      value += greaterThan + (!hasNewLine(node, false, ctx) ? newLine+ repeat(ctx.tabWidth, printContext.indentLevel + (content ? 1 : 0)): '')
     } else {
       value += greaterThan
     }
@@ -162,7 +162,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
   if (!selfClosing && (!omit || !omit.closing(node, index, parent))) {
     const indent = repeat(ctx.tabWidth, printContext.indentLevel );
-    value += (shouldCollapse && !hasNewLine(node) ? newLine + indent : '')
+    value += (shouldCollapse && !hasNewLine(node, false, ctx) && hasOnlyTextContent(node) ? newLine + indent : '')
     value += lessThan + slash + name + greaterThan
   }
 
@@ -303,9 +303,18 @@ function calculateElementWidth(node) {
   return 1
 }
 
-function hasNewLine(node, first) {
+function hasNewLine(node, first, ctx) {
+  const isVoid = ctx.voids.indexOf(node.tagName) !== -1
+
   const position = first ? 0 : node.children.length - 1;
-  return node.children.length &&
+  const noChildren = isVoid && !node.children.length;
+  return noChildren || node.children[position] &&
          node.children[position].type === 'text' &&
          /^\n/.test(node.children[position].value);
+}
+
+function hasOnlyTextContent(node) {
+  return node.children.length &&
+      node.children.every(
+          (child) => child.type === 'text' || node.type === 'comment');
 }
