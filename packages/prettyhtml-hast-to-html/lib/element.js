@@ -31,6 +31,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
   var name = node.tagName
   var value = ''
   var selfClosing
+  var closingTagWidth = 0
   var close
   var omit
   var root = node
@@ -68,9 +69,14 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
   // <
   printContext.offset += lessThan.length
+  closingTagWidth += lessThan.length
+
+  // /
+  closingTagWidth += slash.length
 
   // tagName length
   printContext.offset += node.tagName.length
+  closingTagWidth += node.tagName.length
 
   // / closing tag
   if (selfClosing && !isVoid) {
@@ -79,6 +85,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
   // >
   printContext.offset += greaterThan.length
+  closingTagWidth += greaterThan.length
 
   const propertyCount = Object.keys(node.properties).length
 
@@ -99,9 +106,10 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
   attrs = attributes(ctx, node.properties, printContext, ignoreAttrCollapsing, node)
 
   // calculate element width without closing tag
-  const elementWidth = calculateElementWidth(node);
+  const elementWidth = printContext.offset + (selfClosing ? 0 : closingTagWidth)
 
-  const shouldCollapse = ignoreAttrCollapsing === false && printContext.wrapAttributes || elementWidth > ctx.printWidth;
+  const shouldCollapse =
+    (ignoreAttrCollapsing === false && printContext.wrapAttributes) || elementWidth > ctx.printWidth
 
   content = all(ctx, root)
 
@@ -128,12 +136,8 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
         value += space
       }
 
-      if (shouldCollapse) {
-        value += repeat(ctx.tabWidth, printContext.indentLevel - 1)
-      }
-
       selfClosed = true
-      value += slash
+      value = value.trim() + space + slash
     }
 
     // allow any element to self close itself except known HTML void elements
@@ -146,19 +150,18 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
       value += slash
     }
 
-    // add newline when element should be wrappend on multiple lines and when
-    // it's no self-closing element because in that case the newline was already added before the slash (/)
-    if (shouldCollapse && !selfClosed) {
-      value += greaterThan + newLine + repeat(ctx.tabWidth, printContext.indentLevel)
+    // add newline when element should be wrappend on multiple lines
+    if (shouldCollapse) {
+      value += greaterThan + newLine + repeat(ctx.tabWidth, printContext.indentLevel + (content ? 1 : 0))
     } else {
-    value += greaterThan
+      value += greaterThan
     }
   }
 
   value += content
 
   if (!selfClosing && (!omit || !omit.closing(node, index, parent))) {
-    value += lessThan + slash + name + greaterThan
+    value += (shouldCollapse && content ? newLine : '') + lessThan + slash + name + greaterThan
   }
 
   ctx.schema = parentSchema
@@ -168,7 +171,11 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
 /* Stringify all attributes. */
 function attributes(ctx, props, printContext, ignoreIndent, node) {
-  const nodeOffset = ctx.tabWidth.length * printContext.indentLevel + node.tagName.length + 2/* 1 space + open tag symbol = 2 chars */;
+  let attributesWidth = 0;
+  const nodeOffset =
+    ctx.tabWidth.length * printContext.indentLevel +
+    node.tagName.length +
+    2 /* 1 space + open tag symbol = 2 chars */
   var values = []
   var key
   var value
@@ -187,14 +194,21 @@ function attributes(ctx, props, printContext, ignoreIndent, node) {
     result = attribute(ctx, key, value)
 
     printContext.offset += result.length
-
-    if (ignoreIndent === false && printContext.offset > ctx.printWidth) {
-      printContext.wrapAttributes = true
-    }
+    attributesWidth += result.length
 
     if (result) {
       values.push(result)
     }
+  }
+
+  // Wrap only if open tag exceed regardless of its content or closing tag
+  const openTagOffset = (printContext.indentLevel * ctx.tabWidth.length) +
+      node.tagName.length + 2 + (node.data.selfClosing ? 1 : 0) +
+      attributesWidth;
+
+  const offset = props.length ? openTagOffset : printContext.offset;
+  if (ignoreIndent === false && offset > ctx.printWidth) {
+    printContext.wrapAttributes = true
   }
 
   length = values.length
@@ -207,7 +221,7 @@ function attributes(ctx, props, printContext, ignoreIndent, node) {
     if (last !== quotationMark && last !== apostrophe) {
       if (printContext.wrapAttributes && index > 0) {
         values[index] = newLine + repeat(space, nodeOffset) + result
-      } else if (index !== length - 1) {
+      } else if (index !== length - 1 && !(printContext.wrapAttributes && index === 0)) {
         values[index] = result + space
       } else {
         values[index] = result
@@ -276,13 +290,13 @@ function getNodeData(node, key, defaultValue) {
 }
 
 function calculateElementWidth(node) {
-  if (node.type === 'element') {
-    const startColumn = node.position.start.column;
-    const endColumn = node.position.end.column;
-    const closingTagWidth = node.data.selfClosing ? node.tagName.length + 3 : 0;
+  if (node.type === 'element' && node.position) {
+    const startColumn = node.position.start.column
+    const endColumn = node.position.end.column
+    const closingTagWidth = node.data.selfClosing ? node.tagName.length + 3 : 0
 
-    return endColumn - startColumn - closingTagWidth;
+    return endColumn - startColumn - closingTagWidth
   }
 
-  return 1;
+  return 1
 }

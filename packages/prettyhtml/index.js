@@ -10,6 +10,7 @@ const sortAttributes = require('@starptech/prettyhtml-sort-attributes')
 module.exports = prettyhtml
 
 function core(value, processor, options) {
+  console.log(options)
   const file = new VFile(value)
   let proc = processor().use(format, {
     tabWidth: options.tabWidth,

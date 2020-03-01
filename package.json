@@ -47,5 +47,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "to-vfile": "^6.0.0"
+  }
 }
