@@ -89,6 +89,8 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
   const propertyCount = Object.keys(node.properties).length
 
+  checkAdjacentNode(node, ctx);
+
   // force to wrap attributes on multiple lines when the node contains
   // more than one attribute
   if (propertyCount > 1 && ctx.wrapAttributes) {
@@ -305,4 +307,45 @@ function hasOnlyTextContent(node) {
   return node.children.length &&
       node.children.every(
           (child) => child.type === 'text' || node.type === 'comment');
+}
+
+/** Makes sure element and text leaves don't lie on the same line  */
+function checkAdjacentNode(node, ctx) {
+  const indent = repeat(ctx.tabWidth, node.data.indentLevel) + space;
+  const newLineNode = {type: 'text', value: newLine + indent, children: []};
+
+  for (const [index, child] of node.children.entries()) {
+    const isLeaf = !child.children || !child.children.length;
+    const isVoid = ctx.voids.indexOf(child.tagName) !== -1
+
+    if (!isLeaf || !isVoid) continue;
+
+    const childSize = getNodeWidth(child, isVoid, ctx);
+    // TODO: Replace input with collapsed elements
+    const isCollapsedElement = childSize > ctx.printWidth;
+    const adjancentLeafIsText = node.children[index + 1] && node.children[index + 1].type === 'text' && !/^\n/g.test(node.children[index + 1].value);
+    if (isCollapsedElement && adjancentLeafIsText) {
+      node.children.splice(index + 1, 0, newLineNode);
+      // push new line node
+    }
+  }
+}
+
+function getNodeWidth(node, selfClosing, ctx) {
+  let width = 0;
+  // <tagname>
+  width += node.tagName.length + 2;
+  // space + /
+  width += selfClosing ? 2 : 0;
+
+  for (const prop in node.properties) {
+    const value = node.properties[prop];
+    const result = attribute(ctx, prop, value);
+    // prop=value + "" + space
+    width += result ? result.length + 3 : 0
+  }
+  // remove one space at the last attr since is close with no spaceprop="value">
+  width -= 1;
+
+  return width;
 }
