@@ -6,14 +6,26 @@ class HTMLDocumentFormatter implements vscode.DocumentFormattingEditProvider {
   public provideDocumentFormattingEdits(
       document: vscode.TextDocument,
       options: vscode.FormattingOptions): Thenable<vscode.TextEdit[]> {
-    const extensionOptions = this.constructFormatterOptions(document, options);
-    const text = document.getText();
-    const range = new vscode.Range(
-        document.positionAt(0), document.positionAt(text.length));
-    const formattedDocument =
-        prettyHtml(document.getText(), extensionOptions).contents;
+    return this.doFormatDocument(document, options);
+  }
 
-    return Promise.resolve([new vscode.TextEdit(range, formattedDocument)]);
+  public provideDocumentRangeFormattingEdits(
+      document: vscode.TextDocument, range: vscode.Range,
+      options: vscode.FormattingOptions): Thenable<vscode.TextEdit[]> {
+    return this.doFormatDocument(document, options, range);
+  }
+
+  private doFormatDocument(
+      document: vscode.TextDocument, options: vscode.FormattingOptions,
+      range?: vscode.Range): Thenable<vscode.TextEdit[]> {
+    const extensionOptions = this.constructFormatterOptions(document, options);
+    const text = this.getTextInRange(document, range);
+    const docRange = range ||
+        new vscode.Range(
+            document.positionAt(0), document.positionAt(text.length));
+
+    const formattedDocument = prettyHtml(text, extensionOptions).contents;
+    return Promise.resolve([new vscode.TextEdit(docRange, formattedDocument)]);
   }
 
   private constructFormatterOptions(
@@ -49,16 +61,29 @@ class HTMLDocumentFormatter implements vscode.DocumentFormattingEditProvider {
 
     return {...prettyHtmlConfig, ...prettierConfig};
   }
+
+  private getTextInRange(document: vscode.TextDocument, range?: vscode.Range) {
+    const codeContent = document.getText();
+
+    if (range) {
+      let startOffset = document.offsetAt(range.start);
+      let endOffset = document.offsetAt(range.end);
+
+      return codeContent.slice(startOffset, endOffset);
+    }
+
+    return codeContent;
+  }
 }
 
 export function activate(context: vscode.ExtensionContext) {
   const formatter = new HTMLDocumentFormatter();
   context.subscriptions.push(
-      vscode.languages.registerDocumentFormattingEditProvider(
+      vscode.languages.registerDocumentRangeFormattingEditProvider(
           'html', formatter));
   context.subscriptions.push(
       vscode.languages.registerDocumentFormattingEditProvider(
-          'handlebars', formatter));
+          'html', formatter));
 }
 
 export function deactivate() {}
