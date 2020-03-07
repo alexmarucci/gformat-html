@@ -1,6 +1,5 @@
+import * as gformatHtml from 'gformat-html';
 import * as vscode from 'vscode';
-
-import * as gformatHtml from '../../../packages/gformat-html';
 
 class HTMLDocumentFormatter implements vscode.DocumentFormattingEditProvider {
   public provideDocumentFormattingEdits(

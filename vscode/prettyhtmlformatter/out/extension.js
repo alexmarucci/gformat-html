@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const gformatHtml = require("gformat-html");
 const vscode = require("vscode");
-const prettyHtml = require("../../../packages/gformat-html");
 class HTMLDocumentFormatter {
     provideDocumentFormattingEdits(document, options) {
         return this.doFormatDocument(document, options);
@@ -14,7 +14,7 @@ class HTMLDocumentFormatter {
         const text = this.getTextInRange(document, range);
         const docRange = range ||
             new vscode.Range(document.positionAt(0), document.positionAt(text.length));
-        const formattedDocument = prettyHtml(text, extensionOptions).contents;
+        const formattedDocument = gformatHtml(text, extensionOptions).contents;
         return Promise.resolve([new vscode.TextEdit(docRange, formattedDocument)]);
     }
     constructFormatterOptions(document, options) {
