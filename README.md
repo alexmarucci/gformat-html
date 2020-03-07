@@ -1,10 +1,10 @@
-![Prettyhtml Banner](/logo.png =100x)
-
+<img src="./logo.png" width="100">
+# Global Format - HTMe
 [![Build Status](https://dev.azure.com/prettyhtml/Prettyhtml/_apis/build/status/Prettyhtml.prettyhtml)](https://dev.azure.com/prettyhtml/Prettyhtml/_build/latest?definitionId=1)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![npm version](https://badge.fury.io/js/%40starptech%2Fprettyhtml.svg)](https://badge.fury.io/js/%40starptech%2Fprettyhtml)
 
-Opinionated general formatter for your Angular, Vue, Svelte or pure HTML5 templates. Try it on the [playground](https://prettyhtml.netlify.com/).
+Opinionated general formatter for your Angular, Vue, Svelte or pure HTML5 templates. Try it on the [playground](https://alexmarucci.github.io/gformat-playground).
 
 ## Features
 
@@ -71,10 +71,10 @@ Adding this flag before a tag will preserve from whitespace and/or attribute wra
 
 ```bash
 # regular
-$ npm install @starptech/prettyhtml --global
+$ npm install gformat-html --global
 
 # when using proxy like sinopia/verdaccio
-$ npm install @starptech/prettyhtml --global --registry=https://registry.npmjs.org/
+$ npm install gformat-html --global --registry=https://registry.npmjs.org/
 ```
 
 ## CLI
