@@ -50,13 +50,13 @@ function format(options) {
      * Handle special prettyhtml flags to ignore attribute wrapping and/or whitespace handling
      */
     if (is('comment', node)) {
-      if (node.value.indexOf('prettyhtml-ignore') !== -1) {
+      if (node.value.indexOf('gformat-ignore') !== -1) {
         return setAttributeOnChildren(node, parents, 'ignore', true)
       }
-      if (node.value.indexOf('prettyhtml-preserve-whitespace') !== -1) {
+      if (node.value.indexOf('gformat-preserve-whitespace') !== -1) {
         return setAttributeOnChildren(node, parents, 'preserveWhitespace', true)
       }
-      if (node.value.indexOf('prettyhtml-preserve-attribute-wrapping') !== -1) {
+      if (node.value.indexOf('gformat-preserve-attribute-wrapping') !== -1) {
         return setAttributeOnChildren(node, parents, 'preserveAttrWrapping', true)
       }
     }

@@ -1,4 +1,4 @@
-![Prettyhtml Banner](/logo.png)
+![Prettyhtml Banner](/logo.png =100x)
 
 [![Build Status](https://dev.azure.com/prettyhtml/Prettyhtml/_apis/build/status/Prettyhtml.prettyhtml)](https://dev.azure.com/prettyhtml/Prettyhtml/_build/latest?definitionId=1)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
@@ -49,21 +49,21 @@ Adding this flag before a tag will preserve from whitespace and/or attribute wra
 1. Preserve from indentation, whitespace and attribute wrapping
 
 ```html
-<!--prettyhtml-ignore-->
+<!--gformat-ignore-->
 <div></div>
 ```
 
 2. Preserve only from whitespace processing. This excludes indentation.
 
 ```html
-<!--prettyhtml-preserve-whitespace-->
+<!--gformat-preserve-whitespace-->
 <h1> foo </h1>
 ```
 
 3. Preserve only from attribute wrapping
 
 ```html
-<!--prettyhtml-preserve-attribute-wrapping-->
+<!--gformat-preserve-attribute-wrapping-->
 <h1 foo="bar" ...> foo </h1>
 ```
 
