@@ -3,7 +3,7 @@
 'use strict'
 
 const program = require('commander')
-const prettyhtml = require('gformat-html')
+const gformatHtml = require('gformat-html')
 const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
@@ -47,9 +47,9 @@ htmlFiles.forEach(file => {
   const filePath = path.join(root, file)
   const input = fs.readFileSync(filePath, 'utf8')
   try {
-    const vFile = prettyhtml(input, prettyhtmlCfg)
+    const vFile = gformatHtml(input, prettyhtmlCfg)
     fs.writeFileSync(filePath, vFile.contents, 'utf8')
-    git.stageFile(cwd, file)
+    git.stageFile(root, file)
     console.log(`✍️  Fixing up ${chalk.bold(file)}.`)
   } catch (error) {
     console.log(`❌  Error: ${chalk.bold(error.message)}.`)

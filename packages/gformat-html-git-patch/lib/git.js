@@ -5,7 +5,7 @@ const path = require('path')
 const findUp = require('find-up')
 
 module.exports.detect = directory => {
-  const gitDirectory = findUp.sync('.git', { cwd: directory })
+  const gitDirectory = findUp.sync('.git', {cwd: directory, type: 'directory'})
   if (gitDirectory) {
     return path.dirname(gitDirectory)
   }
