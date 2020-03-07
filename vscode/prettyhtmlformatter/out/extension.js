@@ -4,11 +4,18 @@ const vscode = require("vscode");
 const prettyHtml = require("../../../packages/prettyhtml");
 class HTMLDocumentFormatter {
     provideDocumentFormattingEdits(document, options) {
+        return this.doFormatDocument(document, options);
+    }
+    provideDocumentRangeFormattingEdits(document, range, options) {
+        return this.doFormatDocument(document, options, range);
+    }
+    doFormatDocument(document, options, range) {
         const extensionOptions = this.constructFormatterOptions(document, options);
-        const text = document.getText();
-        const range = new vscode.Range(document.positionAt(0), document.positionAt(text.length));
-        const formattedDocument = prettyHtml(document.getText(), extensionOptions).contents;
-        return Promise.resolve([new vscode.TextEdit(range, formattedDocument)]);
+        const text = this.getTextInRange(document, range);
+        const docRange = range ||
+            new vscode.Range(document.positionAt(0), document.positionAt(text.length));
+        const formattedDocument = prettyHtml(text, extensionOptions).contents;
+        return Promise.resolve([new vscode.TextEdit(docRange, formattedDocument)]);
     }
     constructFormatterOptions(document, options) {
         var _a;
@@ -38,11 +45,20 @@ class HTMLDocumentFormatter {
         const prettierConfig = extensionConfig.usePrettier ? { prettier: Object.assign({}, prettyHtmlConfig) } : {};
         return Object.assign(Object.assign({}, prettyHtmlConfig), prettierConfig);
     }
+    getTextInRange(document, range) {
+        const codeContent = document.getText();
+        if (range) {
+            let startOffset = document.offsetAt(range.start);
+            let endOffset = document.offsetAt(range.end);
+            return codeContent.slice(startOffset, endOffset);
+        }
+        return codeContent;
+    }
 }
 function activate(context) {
     const formatter = new HTMLDocumentFormatter();
+    context.subscriptions.push(vscode.languages.registerDocumentRangeFormattingEditProvider('html', formatter));
     context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider('html', formatter));
-    context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider('handlebars', formatter));
 }
 exports.activate = activate;
 function deactivate() { }

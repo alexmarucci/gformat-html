@@ -1,5 +1,5 @@
 {
-  "name": "@starptech/prettyhtml",
+  "name": "gformat-html",
   "version": "0.10.0",
   "description": "Opinionated Web Component HTML formatter",
   "main": "index.js",
@@ -36,7 +36,6 @@
   },
   "homepage": "https://github.com/StarpTech/prettyhtml#readme",
   "dependencies": {
-    "@starptech/prettyhtml-formatter": "^0.10.0",
     "@starptech/prettyhtml-sort-attributes": "^0.10.0",
     "@starptech/rehype-webparser": "^0.10.0",
     "@starptech/webparser": "^0.10.0",

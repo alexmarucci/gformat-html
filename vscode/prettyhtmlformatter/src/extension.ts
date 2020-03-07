@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import * as prettyHtml from '../../../packages/prettyhtml';
+import * as gformatHtml from '../../../packages/gformat-html';
 
 class HTMLDocumentFormatter implements vscode.DocumentFormattingEditProvider {
   public provideDocumentFormattingEdits(
@@ -24,17 +24,17 @@ class HTMLDocumentFormatter implements vscode.DocumentFormattingEditProvider {
         new vscode.Range(
             document.positionAt(0), document.positionAt(text.length));
 
-    const formattedDocument = prettyHtml(text, extensionOptions).contents;
+    const formattedDocument = gformatHtml(text, extensionOptions).contents;
     return Promise.resolve([new vscode.TextEdit(docRange, formattedDocument)]);
   }
 
   private constructFormatterOptions(
       document: vscode.TextDocument,
-      options: vscode.FormattingOptions): prettyHtml.PrettyHtmlOptions {
+      options: vscode.FormattingOptions): gformatHtml.PrettyHtmlOptions {
     const extensionConfig =
         vscode.workspace.getConfiguration('prettyhtmlformatter');
     const prettyHtmlConfig = {...extensionConfig} as
-        prettyHtml.PrettyHtmlOptions;
+        gformatHtml.PrettyHtmlOptions;
     const editorOptions = vscode.window.activeTextEditor ?.options ||
         {} as vscode.TextEditorOptions;
 

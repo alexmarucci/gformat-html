@@ -1,11 +1,11 @@
 {
-  "name": "@starptech/prettyhtml-formatter",
+  "name": "gformat-html-formatter",
   "version": "0.10.0",
   "description": "Html formatter",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StarpTech/prettyhtml.git"
+    "url": "git+https://github.com/alexmarucci/prettyhtml"
   },
   "scripts": {
     "test-api": "node test/index.js",
@@ -22,12 +22,12 @@
     "prettyhtml",
     "html5"
   ],
-  "author": "Dustin Deus <deusdustin@gmail.com> (http://www.starptech.de)",
+  "author": "Alessio Marucci <ales.marucci@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/StarpTech/prettyhtml/issues"
+    "url": "https://github.com/alexmarucci/prettyhtml"
   },
-  "homepage": "https://github.com/StarpTech/prettyhtml#readme",
+  "homepage": "https://github.com/alexmarucci/prettyhtml#readme",
   "dependencies": {
     "@starptech/expression-parser": "^0.10.0",
     "@starptech/prettyhtml-hast-to-html": "^0.10.0",
