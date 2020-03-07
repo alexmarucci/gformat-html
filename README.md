@@ -91,7 +91,7 @@ $ gformat-html example.html "./**/*.html"
 ### Help
 
 ```
-$ gformat --help
+$ gformat-html --help
 ```
 
 ## Pre-Commit hook integration
