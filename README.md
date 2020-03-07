@@ -1,5 +1,5 @@
 <img src="./logo.png" width="100">
-# Global Format - HTMe
+# Global Format - HTML
 [![Build Status](https://dev.azure.com/prettyhtml/Prettyhtml/_apis/build/status/Prettyhtml.prettyhtml)](https://dev.azure.com/prettyhtml/Prettyhtml/_build/latest?definitionId=1)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![npm version](https://badge.fury.io/js/%40starptech%2Fprettyhtml.svg)](https://badge.fury.io/js/%40starptech%2Fprettyhtml)
@@ -82,24 +82,24 @@ $ npm install gformat-html --global --registry=https://registry.npmjs.org/
 This will process recursively all HTML files in the current directory.
 
 ```
-$ prettyhtml example.html "./**/*.html"
+$ gformat-html example.html "./**/*.html"
 ```
 
 ### Help
 
 ```
-$ prettyhtml --help
+$ gformat --help
 ```
 
 ## Pre-Commit hook integration
 
-We provide a simple package called [prettyhtml-quick](/packages/prettyhtml-quick) which is able to format only changed files. This example use [husky](https://github.com/typicode/husky) to manage git hooks in the package.json
+We provide a simple package called [gformat-html-git-patch](/packages/gformat-html-git-patch) which is able to format only changed files. This example use [husky](https://github.com/typicode/husky) to manage git hooks in the package.json
 
 ```json
 {
   "husky": {
     "hooks": {
-      "precommit": "prettyhtml-quick --staged"
+      "precommit": "gformat-html-git-patch --staged"
     }
   }
 }
@@ -107,7 +107,7 @@ We provide a simple package called [prettyhtml-quick](/packages/prettyhtml-quick
 
 ## API
 
-## `prettyhtml(doc: string, options?): vFile`
+## `gformathtml(doc: string, options?): vFile`
 
 Formats a string and returns a [`vFile`](https://github.com/vfile/vfile). The method can throw e.g when a parsing error was produced. The error is from type [`vfile-message`](https://github.com/vfile/vfile-message).
 
@@ -147,17 +147,18 @@ Sort attributes alphabetically (default: false)
 
 ## Editor support
 
-- [VSCode](https://github.com/StarpTech/prettyhtml-vscode) extension (not published yet)
+- [VSCode](https://marketplace.visualstudio.com/items?itemName=gformat.html-formatter) extension
 - [Vetur](https://vuejs.github.io/vetur/formatting.html#formatters) Vue tooling for VS Code
 
 ## Why
 
-Prettier has [landed](https://github.com/prettier/prettier/releases/tag/1.15.0) HTML support some days ago. This is awesome and will help many people to reduce the headache of correct formatting in teams. The reason why I still using prettyhtml is clear:
+Prettier has [landed](https://github.com/prettier/prettier/releases/tag/1.15.0) HTML support some days ago. This is awesome and will help many people to reduce the headache of correct formatting in teams. The reason why I created this formatter is to allow everyone to define their styles rules without imposing any style rules.
 
 - It is very easy to maintain because we have a [specification](https://github.com/syntax-tree/hast) and an [ecosystem](https://github.com/rehypejs/rehype) (and @vfile, @syntax-tree) of plugins.
 - It should be able to format any superset of HTML as long it is parseable with minor tweaks. We use a modified version of the Angular 6 template parser. There is no need to maintain multiple parser.
-- Prettyhtml doesn't try to understand all Javascript frameworks in depth even when it means that the user has to update some places manually.
+- gformat-html doesn't try to understand all Javascript frameworks in depth even when it means that the user has to update some places manually.
 
 ## Acknowledgement
+This is a fork from the awesome [prettyhtml](https://github.com/Prettyhtml/prettyhtml) library created by [@starptech](https://github.com/StarpTech).
 
 Big thanks to the creators of the excellent [rehype](https://github.com/rehypejs/rehype) and [unified](https://github.com/unifiedjs/unified) ecosystem.
