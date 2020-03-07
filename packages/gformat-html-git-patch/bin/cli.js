@@ -3,7 +3,7 @@
 'use strict'
 
 const program = require('commander')
-const prettyhtml = require('../prettyhtml')
+const prettyhtml = require('../gformat-html')
 const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')

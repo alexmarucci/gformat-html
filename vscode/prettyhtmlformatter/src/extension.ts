@@ -92,7 +92,7 @@ export function deactivate() {}
 // // Import the module and reference it with the alias vscode in your code
 // below import {format} from 'path'; import * as vscode from 'vscode';
 
-// import * as prettyHtml from '../../../packages/prettyhtml';
+// import * as prettyHtml from '../../../packages/gformat-html';
 
 // export function activate(context: vscode.ExtensionContext) {
 //   // whole document formatting

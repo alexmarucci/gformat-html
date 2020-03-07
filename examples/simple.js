@@ -1,4 +1,4 @@
-const prettyhtml = require('./../packages/prettyhtml')
+const prettyhtml = require('./../packages/gformat-html')
 
 // example with angular template
 try {

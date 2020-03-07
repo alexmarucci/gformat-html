@@ -13,8 +13,7 @@
     "build-ts": "lerna exec --scope @starptech/webparser --scope @starptech/hast-util-from-webparser --scope @starptech/rehype-webparser -- yarn run build-ts"
   },
   "husky": {
-    "hooks": {
-    }
+    "hooks": {}
   },
   "repository": {
     "type": "git",

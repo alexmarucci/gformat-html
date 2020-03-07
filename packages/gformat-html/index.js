@@ -3,11 +3,11 @@
 const VFile = require('vfile')
 const unified = require('unified')
 const parse = require('@starptech/rehype-webparser')
-const stringify = require('../prettyhtml-formatter/stringify')
-const format = require('../prettyhtml-formatter')
+const stringify = require('../gformat-html-formatter/stringify')
+const format = require('../gformat-html-formatter')
 const sortAttributes = require('@starptech/prettyhtml-sort-attributes')
 
-module.exports = prettyhtml
+module.exports = gformatHtml
 
 function core(value, processor, options) {
   const file = new VFile(value)
@@ -35,7 +35,7 @@ function core(value, processor, options) {
     .processSync(file)
 }
 
-function prettyhtml(value, options) {
+function gformatHtml(value, options) {
   const opt = Object.assign({}, options)
   return core(
     value,

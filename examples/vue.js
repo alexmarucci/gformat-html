@@ -1,5 +1,5 @@
 const vfile = require('to-vfile')
-const prettyhtml = require('./../packages/prettyhtml')
+const prettyhtml = require('./../packages/gformat-html')
 
 const base = 'packages/prettyhtml-formatter/test/fixtures/'
 const filename = 'vue/input.html'

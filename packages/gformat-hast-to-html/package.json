@@ -1,5 +1,5 @@
 {
-  "name": "gformat-hast-to-html",
+  "name": "gformat-hast-to-html-tmp",
   "version": "0.1.1",
   "description": "Hast to html converter",
   "main": "index.js",

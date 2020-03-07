@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
-const prettyHtml = require("../../../packages/prettyhtml");
+const prettyHtml = require("../../../packages/gformat-html");
 class HTMLDocumentFormatter {
     provideDocumentFormattingEdits(document, options) {
         return this.doFormatDocument(document, options);
@@ -66,7 +66,7 @@ exports.deactivate = deactivate;
 // // The module 'vscode' contains the VS Code extensibility API
 // // Import the module and reference it with the alias vscode in your code
 // below import {format} from 'path'; import * as vscode from 'vscode';
-// import * as prettyHtml from '../../../packages/prettyhtml';
+// import * as prettyHtml from '../../../packages/gformat-html';
 // export function activate(context: vscode.ExtensionContext) {
 //   // whole document formatting
 //   context.subscriptions.push(
