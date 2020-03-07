@@ -1,6 +1,6 @@
 {
   "name": "gformat-hast-to-html",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hast to html converter",
   "main": "index.js",
   "repository": {
@@ -16,7 +16,7 @@
     "lib"
   ],
   "keywords": [
-    "prettyhtml",
+    "gformat",
     "formatter",
     "html5",
     "stringify"
