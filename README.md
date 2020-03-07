@@ -1,5 +1,7 @@
-<img src="./logo.png" width="100">
+<img src="./logo.png" width="100" style="margin: auto">
+
 # Global Format - HTML
+
 [![Build Status](https://dev.azure.com/prettyhtml/Prettyhtml/_apis/build/status/Prettyhtml.prettyhtml)](https://dev.azure.com/prettyhtml/Prettyhtml/_build/latest?definitionId=1)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![npm version](https://badge.fury.io/js/%40starptech%2Fprettyhtml.svg)](https://badge.fury.io/js/%40starptech%2Fprettyhtml)
