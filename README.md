@@ -33,17 +33,17 @@ Opinionated general formatter for your Angular, Vue, Svelte or pure HTML5 templa
 
 ## Packages
 
-- [prettyhtml](/packages/prettyhtml) CLI and API.
-- [prettyhtml-formatter](/packages/prettyhtml-formatter) Formatter.
-- [prettyhtml-hast-to-html](/packages/prettyhtml-hast-to-html) Stringifier.
-- [prettyhtml-hastscript](/packages/prettyhtml-hastscript) Hyperscript compatible DSL for creating virtual HAST trees.
-- [prettyhtml-sort-attributes](/packages/prettyhtml-sort-attributes) Sort attributes alphabetically.
-- [prettyhtml-quick](/packages/prettyhtml-quick) Formats your changed files based on Git.
-- [webparser](/packages/webparser) Optimized HTML parser for formatters
-- [expression-parser](/packages/expression-parser) Framework agnostic template expression parser.
-- [rehype-webparser](/packages/rehype-webparser) Adapter between HTML parser and rehype.
-- [rehype-minify-whitespace](/packages/rehype-minify-whitespace) Collapse whitespace.
-- [hast-util-from-parse](/packages/hast-util-from-webparser) Transform [webparser](/packages/webparser) AST to HAST.
+- [gformat-html](/packages/gformat-html) CLI and API.
+- [gformat-html-formatter](/packages/gformat-html-formatter) Formatter.
+- [gformat-html-hast-to-html](/packages/gformat-html-hast-to-html) Stringifier.
+- [prettyhtml-hastscript](https://github.com/Prettyhtml/prettyhtml/packages/prettyhtml-hastscript) Hyperscript compatible DSL for creating virtual HAST trees.
+- [prettyhtml-sort-attributes](https://github.com/Prettyhtml/prettyhtml/packages/prettyhtml-sort-attributes) Sort attributes alphabetically.
+- [gformat-html-git-patch](/packages/gformat-html-git-patch) Formats your changed files based on Git.
+- [webparser](https://github.com/Prettyhtml/prettyhtml/packages/webparser) Optimized HTML parser for formatters
+- [expression-parser](https://github.com/Prettyhtml/prettyhtml/packages/expression-parser) Framework agnostic template expression parser.
+- [rehype-webparser](https://github.com/Prettyhtml/prettyhtml/packages/rehype-webparser) Adapter between HTML parser and rehype.
+- [rehype-minify-whitespace](https://github.com/Prettyhtml/prettyhtml/packages/rehype-minify-whitespace) Collapse whitespace.
+- [hast-util-from-parse](https://github.com/Prettyhtml/prettyhtml/packages/hast-util-from-webparser) Transform [webparser](https://github.com/Prettyhtml/prettyhtml/packages/webparser) AST to HAST.
 
 ## Ignore element
 
