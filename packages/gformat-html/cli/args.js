@@ -3,7 +3,7 @@ const meow = require('meow')
 function args(prettierConfig = {}) {
   return meow(
     `
-    Usage: prettyhtml [<glob> ...] [options ...],
+    Usage: gformat-html [<glob> ...] [options ...],
 
     Options:
 
@@ -19,9 +19,9 @@ function args(prettierConfig = {}) {
     --silent          Do not output messages without fatal set to true
 
     Examples
-      $ prettyhtml *.html
-      $ prettyhtml *.html !example.html
-      $ echo "<custom foo='bat'></custom>" | prettyhtml --stdin
+      $ gformat-html *.html
+      $ gformat-html *.html !example.html
+      $ echo "<custom foo='bat'></custom>" | gformat-html --stdin
       $ echo "<custom foo='bat'></custom>" --stdin ./test.html
     `,
     {

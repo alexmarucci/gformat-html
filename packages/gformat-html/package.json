@@ -1,6 +1,6 @@
 {
   "name": "gformat-html",
-  "version": "0.10.0",
+  "version": "0.1.0",
   "description": "Opinionated Web Component HTML formatter",
   "main": "index.js",
   "repository": {
@@ -39,6 +39,7 @@
     "@starptech/prettyhtml-sort-attributes": "^0.10.0",
     "@starptech/rehype-webparser": "^0.10.0",
     "@starptech/webparser": "^0.10.0",
+    "gformat-html-formatter": "^0.1.2",
     "meow": "^5.0.0",
     "prettier": "^1.18.2",
     "rehype-sort-attribute-values": "^2.0.1",

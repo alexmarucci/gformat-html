@@ -1,10 +1,14 @@
 {
-  "name": "@starptech/prettyhtml-quick",
-  "version": "0.10.0",
+  "name": "gformat-html-git-patch",
+  "version": "0.1.0",
   "description": "",
   "main": "./bin/cli.js",
   "scripts": {
     "test": "echo 'no tests defined'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexmarucci/gformat-html"
   },
   "bin": {
     "prettyhtml-quick": "./bin/cli.js"
@@ -14,23 +18,22 @@
     "bin"
   ],
   "keywords": [
-    "prettyhtml",
+    "gformat",
     "git",
     "formatter",
     "html5"
   ],
-  "author": "Dustin Deus <deusdustin@gmail.com> (http://www.starptech.de)",
+  "author": "Alessio Marucci <ales.marucci@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@starptech/prettyhtml": "^0.10.0",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "execa": "^1.0.0",
     "find-up": "^4.1.0",
+    "gformat-html": "^0.1.0",
     "prettier": "^1.18.2"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "c7bfe5fdd9ef240ddf235e50a81be52b30828c8f"
+  }
 }

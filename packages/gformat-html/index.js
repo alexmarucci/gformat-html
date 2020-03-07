@@ -3,8 +3,8 @@
 const VFile = require('vfile')
 const unified = require('unified')
 const parse = require('@starptech/rehype-webparser')
-const stringify = require('../gformat-html-formatter/stringify')
-const format = require('../gformat-html-formatter')
+const stringify = require('gformat-html-formatter/stringify')
+const format = require('gformat-html-formatter')
 const sortAttributes = require('@starptech/prettyhtml-sort-attributes')
 
 module.exports = gformatHtml

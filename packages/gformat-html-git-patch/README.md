@@ -1,11 +1,11 @@
-# prettyhtml-quick
+# gformat-html-git-patch
 
-Runs [Prettyhtml](https://github.com/Prettyhtml/prettyhtml) on your changed (based on Git) files.
+Runs [gFormatHtml](https://github.com/alexmarucci/gformat-html) on your changed (based on Git) files.
 
 Example:
 
 ```
-prettyhtml-quick
+gformat-html-git-patch
 🔍  Finding changed files since git revision 2eb4337.
 🎯  Found 1 changed file.
     ☝  printWidth: 80, tabWidth: 2
@@ -16,7 +16,7 @@ prettyhtml-quick
 ## Install
 
 ```shellsession
-npm install --save-dev @starptech/prettyhtml-quick
+npm install --save-dev gformat-html-git-patch
 ```
 
 ## Usage
@@ -24,12 +24,12 @@ npm install --save-dev @starptech/prettyhtml-quick
 With [`npx`](https://npm.im/npx): (No install required)
 
 ```shellsession
-npx @starptech/prettyhtml-quick
+npx gformat-html-git-patch
 ```
 
 ## Pre-Commit Hook
 
-You can run `prettyhtml-quick` as a pre-commit hook using [`husky`](https://github.com/typicode/husky).
+You can run `gformat-html-git-patch` as a pre-commit hook using [`husky`](https://github.com/typicode/husky).
 
 ```shellstream
 yarn add --dev husky
@@ -38,7 +38,7 @@ yarn add --dev husky
 In `package.json`'s `"scripts"` section, add:
 
 ```
-"precommit": "prettyhtml-quick"
+"precommit": "gformat-html-git-patch"
 ```
 
 ## CLI Flags

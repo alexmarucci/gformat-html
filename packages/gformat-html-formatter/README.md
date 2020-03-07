@@ -1,4 +1,4 @@
-# @starptech/prettyhtml-formatter
+# gformat-html-formatter
 
 HTML formatter for [HAST](https://github.com/syntax-tree/hast)
 
