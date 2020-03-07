@@ -19,7 +19,7 @@ class HTMLDocumentFormatter {
     }
     constructFormatterOptions(document, options) {
         var _a;
-        const extensionConfig = vscode.workspace.getConfiguration('prettyhtmlformatter');
+        const extensionConfig = vscode.workspace.getConfiguration('gformathtml');
         const prettyHtmlConfig = Object.assign({}, extensionConfig);
         const editorOptions = ((_a = vscode.window.activeTextEditor) === null || _a === void 0 ? void 0 : _a.options) ||
             {};

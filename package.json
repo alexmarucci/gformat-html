@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/StarpTech/prettyhtml#readme",
   "devDependencies": {
-    "@types/jest": "^24.0.6",
     "@types/node": "^11.9.4",
     "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",

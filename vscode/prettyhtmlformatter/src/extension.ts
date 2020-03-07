@@ -30,8 +30,7 @@ class HTMLDocumentFormatter implements vscode.DocumentFormattingEditProvider {
   private constructFormatterOptions(
       document: vscode.TextDocument,
       options: vscode.FormattingOptions): gformatHtml.PrettyHtmlOptions {
-    const extensionConfig =
-        vscode.workspace.getConfiguration('prettyhtmlformatter');
+    const extensionConfig = vscode.workspace.getConfiguration('gformathtml');
     const prettyHtmlConfig = {...extensionConfig} as
         gformatHtml.PrettyHtmlOptions;
     const editorOptions = vscode.window.activeTextEditor ?.options ||
