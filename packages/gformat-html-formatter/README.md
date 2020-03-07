@@ -5,7 +5,7 @@ HTML formatter for [HAST](https://github.com/syntax-tree/hast)
 ## Installation
 
 ```
-npm install --save @starptech/prettyhtml-formatter
+npm install --save gformat-html-formatter
 ```
 
 ## Api
