@@ -4,6 +4,7 @@
 	"description": "HTML formatter using gformat-html",
 	"publisher": "gformat",
 	"version": "0.0.1",
+	"icon": "g-letter.jpg",
 	"scripts": {
 		"compile": "webpack --mode production",
 		"vscode:publish": "vsce package && vsce publish",

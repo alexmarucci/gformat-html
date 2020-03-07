@@ -7,5 +7,5 @@ An humble HTML Formatter using **gformat-html** (https://www.npmjs.com/package/g
 This extension contributes the following settings:
 
 * `gformathtml.forceWrapAttributes`: Wrap attributes regardless of the line length
-* `myExtension.singleQuote`: Use single quote (default double quote)
+* `gformathtml.singleQuote`: Use single quote (default double quote)
 * `gformathtml.sortAttributes`: Whether or not it should sort attributes
