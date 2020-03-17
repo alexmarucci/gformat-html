@@ -1,6 +1,6 @@
 {
   "name": "gformat-html-git-patch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Html formatter using gformat-html",
   "main": "./bin/cli.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/alexmarucci/gformat-html"
   },
   "bin": {
-    "prettyhtml-quick": "./bin/cli.js"
+    "gformat-html-git-patch": "./bin/cli.js"
   },
   "files": [
     "lib",
