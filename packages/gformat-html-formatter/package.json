@@ -1,6 +1,6 @@
 {
   "name": "gformat-html-formatter",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Html formatter",
   "main": "index.js",
   "repository": {
