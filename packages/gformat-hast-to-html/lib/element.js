@@ -139,7 +139,7 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
       }
 
       selfClosed = true
-      value = value.trim() + space + slash
+      value = value.trim()
     }
 
     // allow any element to self close itself except known HTML void elements
