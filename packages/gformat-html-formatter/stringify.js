@@ -1,7 +1,7 @@
 'use strict'
 
 const xtend = require('xtend')
-const toHTML = require('gformat-hast-to-html-tmp')
+const toHTML = require('gformat-hast-to-html')
 
 module.exports = stringify
 
