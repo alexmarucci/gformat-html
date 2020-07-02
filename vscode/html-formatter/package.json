@@ -3,7 +3,7 @@
 	"displayName": "Global HTML Formatter (gformat-html)",
 	"description": "HTML formatter using gformat-html",
 	"publisher": "gformat",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"icon": "g-letter.jpg",
 	"scripts": {
 		"compile": "webpack --mode production",
@@ -92,7 +92,7 @@
 		"webpack-cli": "^3.3.11"
 	},
 	"dependencies": {
-		"gformat-html": "^0.1.0",
+		"gformat-html": "^0.1.1",
 		"html-whitespace-sensitive-tag-names": "^1.0.1"
 	}
 }
