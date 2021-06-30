@@ -34,6 +34,8 @@ function toHTML(node, options) {
       safe: settings.allowDangerousCharacters ? 0 : 1,
       schema: settings.space === 'svg' ? svg : html,
       omit: settings.omitOptionalTags && omission,
+      useTabs,
+      settings: {tabWidth: settings.tabWidth || 2},
       quote: quote,
       printWidth: printWidth,
       tabWidth: tabWidth,

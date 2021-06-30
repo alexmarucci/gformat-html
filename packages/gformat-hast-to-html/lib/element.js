@@ -17,6 +17,7 @@ var emptyString = ''
 
 /* Characters. */
 var space = ' '
+var tab = '\t'
 var quotationMark = '"'
 var apostrophe = "'"
 var equalsTo = '='
@@ -140,6 +141,11 @@ function element(ctx, node, index, parent, printWidthOffset, innerTextLength) {
 
       selfClosed = true
       value = value.trim()
+
+      if (ctx.closeEmpty) {
+        if (!ctx.tightClose) value += space
+        value += slash
+      }
     }
 
     // allow any element to self close itself except known HTML void elements
@@ -205,9 +211,12 @@ function attributes(ctx, props, printContext, ignoreIndent, node) {
     }
   }
 
+
+  const isSelfClosing = getNodeData(node, 'selfClosing', false);
+
   // Wrap only if open tag exceed regardless of its content or closing tag
   const openTagOffset = (printContext.indentLevel * ctx.tabWidth.length) +
-      node.tagName.length + 2 + (node.data.selfClosing ? 1 : 0) +
+      node.tagName.length + 2 + (isSelfClosing ? 1 : 0) +
       attributesWidth;
 
   const offset = attributesWidth > 0 ? openTagOffset : printContext.offset;
@@ -224,7 +233,13 @@ function attributes(ctx, props, printContext, ignoreIndent, node) {
     /* In tight mode, don’t add a space after quoted attributes. */
     if (last !== quotationMark && last !== apostrophe) {
       if (printContext.wrapAttributes && index > 0) {
-        values[index] = newLine + repeat(space, nodeOffset) + result
+        const tabSize = ctx.settings.tabWidth;
+        const tabIndentation = Math.floor(nodeOffset / tabSize);
+
+        const indent = ctx.useTabs ? repeat(tab, tabIndentation) :
+                                     repeat(space, nodeOffset);
+
+        values[index] = newLine + indent + result
       } else if (index !== length - 1 && !(printContext.wrapAttributes && index === 0)) {
         values[index] = result + space
       } else {
@@ -311,7 +326,8 @@ function hasOnlyTextContent(node) {
 
 /** Makes sure element and text leaves don't lie on the same line  */
 function checkAdjacentNode(node, ctx) {
-  const indent = repeat(ctx.tabWidth, node.data.indentLevel) + space;
+  const indentLevel = getNodeData(node, 'indentLevel', 0);
+  const indent = repeat(ctx.tabWidth, indentLevel) + space;
   const newLineNode = {type: 'text', value: newLine + indent, children: []};
 
   for (const [index, child] of node.children.entries()) {
